@@ -11,6 +11,16 @@ you can reference it like the following:
 SELECT bqutil.fn.int(1.684)
 ```
 
+## Running Tests
+The simplest way to get tests running is to run the `pip install -r requirements` in the ../tests directory. Once those libraries are installed, you can run test for each new test you add. Basically, running the `../tests/run.sh`, but testing each entry individually. For example, to test the `kruskal_wallis` you can run in the `bigquery-utils` directory:
+```
+python3 -m pip install -r udfs/tests/requirements.txt
+python3 udfs/tests/udf_test_utils.py --create_test_datasets	
+python3 -m pytest --workers 100 udfs/tests/create_udf_signatures.py -k kruskal_wallis
+python3 -m pytest --workers 100 udfs/tests/test_create_udfs.py -k kruskal_wallis
+python3 -m pytest --workers 100 udfs/tests/test_run_udfs.py -k kruskal_wallis
+```
+
 ## UDFs
 
 * [kruskal_wallis](#kruskal_wallisarrstructfactor-string-val-float64)
