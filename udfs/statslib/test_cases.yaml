@@ -10,11 +10,22 @@ linear_regression:
   - test:
     input: (SELECT [ (5.1,2.5), (5.0,2.0), (5.7,2.6), (6.0,2.2), (5.8,2.6), (5.5,2.3), (6.1,2.8), (5.5,2.5), (6.4,3.2), (5.6,3.0)])
     expected_output: STRUCT(CAST(-0.4353361094588436 AS FLOAT64) AS a, CAST( 0.5300416418798544 AS FLOAT64) AS b, CAST(0.632366563565354 AS FLOAT64) AS r)
+#  - test:
+##   This works up to limit ~1M
+#    input: (SELECT ARRAY_AGG((CAST(paid_by_payer AS FLOAT64), CAST(paid_by_patient AS FLOAT64))) FROM (SELECT * FROM `bigquery-public-data.cms_synthetic_patient_data_omop.cost` LIMIT 1000000))
+#    expected_output: STRUCT(CAST(3.007876376522615 AS FLOAT64) AS a, CAST( 0.2872503734728416 AS FLOAT64) AS b, CAST( 0.7416751767896108 AS FLOAT64) AS r)
 t_test:
   - test:
     input: (SELECT [1,2,3,4,5]), (SELECT [5,6,7,8,9])
     expected_output: STRUCT(CAST(-4.0 AS FLOAT64) AS t, CAST(8 AS INT64) AS df)
+#  - test:
+#    input: (SELECT ARRAY_AGG(fee) FROM `bigquery-public-data.crypto_bitcoin.transactions` WHERE version = 1), (SELECT ARRAY_AGG(fee) FROM `bigquery-public-data.crypto_bitcoin.transactions` WHERE version = 2)
+#    expected_output: STRUCT(CAST(-114.3631683817605 AS FLOAT64) AS t, CAST(572786856 AS INT64) AS df)
 chi_square:
   - test:
     input: (SELECT [ (5.1,2.5), (5.0,2.0), (5.7,2.6), (6.0,2.2), (5.8,2.6), (5.5,2.3), (6.1,2.8), (5.5,2.5), (6.4,3.2), (5.6,3.0)])
     expected_output: STRUCT(CAST(4.25 AS FLOAT64) AS chi_square, CAST( 56 AS INT64) AS degrees_freedom)
+#  - test:
+##   This works up to limit ~1M
+#    input: (SELECT ARRAY_AGG((CAST(paid_by_payer AS FLOAT64), CAST(paid_by_patient AS FLOAT64))) FROM (SELECT * FROM `bigquery-public-data.cms_synthetic_patient_data_omop.cost` LIMIT 1000000))
+#    expected_output: STRUCT(CAST(4.25 AS FLOAT64) AS chi_square, CAST( 56 AS INT64) AS degrees_freedom)
