@@ -1,10 +1,10 @@
 #standardSQL
-CREATE OR REPLACE PROCEDURE `bq-stats-test.TestData.linear_regression`(subquery STRING, x_col STRING, y_col STRING)
+CREATE OR REPLACE PROCEDURE `bqutil.procedure.linear_regression`(subquery STRING, x_col STRING, y_col STRING)
 OPTIONS (strict_mode=false)
 BEGIN
 
 IF REGEXP_CONTAINS(subquery, r'(?im)(select\s)') THEN
-    -- If we see a asdfSELECT clause, we have a subquery and need to wrap in parens
+    -- If we see a SELECT clause, we have a subquery and need to wrap in parens
     SET subquery = CONCAT('(', CONCAT(subquery, ')t'));
 ELSEIF REGEXP_CONTAINS(subquery, r'\W') AND NOT REGEXP_CONTAINS(subquery, r'^\s*`.*`\s*$') THEN
     -- Otherwise, make sure to wrap the table identifier in backticks if needed

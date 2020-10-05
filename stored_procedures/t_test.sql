@@ -1,5 +1,5 @@
 #standardSQL
-CREATE OR REPLACE PROCEDURE `bq-stats-test.TestData.t_test`(subquery_1 STRING, x_1 STRING, subquery_2 STRING, x_2 STRING)
+CREATE OR REPLACE PROCEDURE `bqutil.procedure.t_test`(subquery_1 STRING, x_1 STRING, subquery_2 STRING, x_2 STRING)
 OPTIONS (strict_mode=false)
 BEGIN
 
